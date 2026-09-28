@@ -99,6 +99,8 @@ function App() {
     event.currentTarget.style.setProperty('--parallax-y', ((y - 0.5) * 14) + 'px')
   }
   const resetHeroArtwork = (event) => {
+    event.currentTarget.style.setProperty('--pointer-x', '72%')
+    event.currentTarget.style.setProperty('--pointer-y', '44%')
     event.currentTarget.style.setProperty('--parallax-x', '0px')
     event.currentTarget.style.setProperty('--parallax-y', '0px')
   }
@@ -123,35 +125,25 @@ function App() {
       </header>
 
       <main>
-        <section className="hero" id="home" onPointerMove={moveHeroArtwork} onPointerLeave={resetHeroArtwork}>
+        <section className="hero hero-reference" id="home" onPointerMove={moveHeroArtwork} onPointerLeave={resetHeroArtwork}>
+          <div className="hero-scene" aria-hidden="true">
+            <img className="hero-scene-image" src="/zero-one-laptop.webp" alt="" fetchPriority="high" />
+          </div>
           <div className="hero-grain" aria-hidden="true" />
           <div className="hero-grid container">
             <div className="hero-copy">
               <div className="hero-kicker"><span className="eyebrow-dot" /><span>وكالة تسويق إبداعي</span><i>القاهرة · نشتغل أونلاين</i></div>
-              <h1><span>مش بنعمل</span><span className="hero-word">دوشة<span className="hero-dot">.</span></span><span>بنصنع <em>أثر.</em></span></h1>
-              <p className="hero-description">من أول فكرة لآخر تفصيلة، بنبني علامات الناس تفتكرها وتختارها.</p>
+              <h1><span>نبني تجارب</span><span>رقمية <em>تفضل</em></span><span>في الذاكرة.</span></h1>
+              <p className="hero-description">من أول فكرة لآخر تفصيلة، بنجمع الاستراتيجية والإبداع عشان علامتك تفضل في بال الناس.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href={whatsappUrl} target="_blank" rel="noreferrer">احكي لنا عن مشروعك <ArrowIcon diagonal /></a>
                 <a className="text-link text-link-light" href="#services">اكتشف اللي نقدر نعمله <ArrowIcon /></a>
               </div>
               <div className="hero-bottomline"><span>STRATEGY</span><i /><span>CREATIVE</span><i /><span>GROWTH</span></div>
             </div>
-
-            <div className="hero-visual reveal" aria-label="مشهد إبداعي لعلامة Zero One">
-              <div className="hero-image-shell">
-                <img className="hero-art-image" src="/zero-one-hero.webp" alt="حلقة برتقالية معدنية مضيئة وسط خلفية سوداء" fetchPriority="high" />
-                <div className="hero-image-shade" />
-                <div className="hero-image-index"><span>01</span><i /><small>IDEA → IMPACT</small></div>
-                <div className="hero-image-caption"><Mark className="hero-image-mark" /><span>نبدأ من<br />الفكرة.</span></div>
-              </div>
-              <div className="hero-orbit orbit-one" />
-              <div className="hero-orbit orbit-two" />
-              <div className="hero-float-chip"><b>01</b><span>كل حاجة<br />ليها بداية</span></div>
-              <span className="hero-spark spark-a">✳</span>
-              <span className="hero-spark spark-b">✦</span>
-              <div className="hero-coordinate">30°02' · 31°14'</div>
-            </div>
           </div>
+          <div className="hero-floating-note"><span>01</span><i /><small>من الفكرة<br />للأثر</small></div>
+          <div className="hero-wordmark" aria-hidden="true">ZERO <span>ONE</span></div>
           <a className="scroll-cue" href="#about"><span>اسحب لتحت واكتشف</span><i /></a>
           <div className="hero-side-index" aria-hidden="true"><span>ZERO ONE</span><i />01 — 04</div>
         </section>
