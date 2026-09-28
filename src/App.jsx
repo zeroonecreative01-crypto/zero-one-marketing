@@ -12,7 +12,7 @@ const services = [
 const steps = [
   { number: '01', title: 'نسمع', text: 'نبدأ من قصتك، ونفهم جمهورك واللي عايز توصله فعلًا.' },
   { number: '02', title: 'نصمّم الاتجاه', text: 'نحوّل الصورة الكبيرة لفكرة واضحة وخطة تقدر تتحرك.' },
-  { number: '03', title: 'ننطلق ونطوّر', text: 'ننّفذ، نقيس، ونحسّن؛ كل خطوة مبنية على اللي قبلها.' },
+  { number: '03', title: 'ننطلق ونطوّر', text: 'ننفّذ، نقيس، ونحسّن؛ كل خطوة مبنية على اللي قبلها.' },
 ]
 
 function Mark({ className = '' }) {
@@ -120,32 +120,32 @@ function App() {
             <a href="#services" onClick={closeMenu}>خدماتنا</a>
             <a href="#approach" onClick={closeMenu}>منهجنا</a>
           </nav>
-          <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">ابدأ محادثة <ArrowIcon diagonal /></a>
+          <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">ابدأ مشروعك <ArrowIcon diagonal /></a>
         </div>
       </header>
 
       <main>
         <section className="hero hero-reference" id="home" onPointerMove={moveHeroArtwork} onPointerLeave={resetHeroArtwork}>
           <div className="hero-scene" aria-hidden="true">
-            <img className="hero-scene-image" src="/zero-one-laptop.webp" alt="" fetchPriority="high" />
+            <div className="hero-scene-halo" />
+            <div className="hero-scene-orbit orbit-one" />
+            <div className="hero-scene-orbit orbit-two" />
+            <img className="hero-scene-image" src="/zero-one-orbit.png" alt="" fetchPriority="high" />
+            <span className="hero-scene-label">IDEA <i>✳</i> TO <i>✳</i> IMPACT</span>
           </div>
-          <div className="hero-grain" aria-hidden="true" />
           <div className="hero-grid container">
             <div className="hero-copy">
               <div className="hero-kicker"><span className="eyebrow-dot" /><span>وكالة تسويق إبداعي</span><i>القاهرة · نشتغل أونلاين</i></div>
-              <h1><span>نبني تجارب</span><span>رقمية <em>تفضل</em></span><span>في الذاكرة.</span></h1>
-              <p className="hero-description">من أول فكرة لآخر تفصيلة، بنجمع الاستراتيجية والإبداع عشان علامتك تفضل في بال الناس.</p>
+              <h1><span>فكرتك تستاهل</span><span>تفضل في <em>البال.</em></span></h1>
+              <p className="hero-description">استراتيجية، محتوى، وحملات إبداعية تبني حضور علامتك خطوة بخطوة.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href={whatsappUrl} target="_blank" rel="noreferrer">احكي لنا عن مشروعك <ArrowIcon diagonal /></a>
+                <a className="button button-primary" href={whatsappUrl} target="_blank" rel="noreferrer">احكي لنا عن فكرتك <ArrowIcon diagonal /></a>
                 <a className="text-link text-link-light" href="#services">اكتشف اللي نقدر نعمله <ArrowIcon /></a>
               </div>
               <div className="hero-bottomline"><span>STRATEGY</span><i /><span>CREATIVE</span><i /><span>GROWTH</span></div>
             </div>
           </div>
-          <div className="hero-floating-note"><span>01</span><i /><small>من الفكرة<br />للأثر</small></div>
-          <div className="hero-wordmark" aria-hidden="true">ZERO <span>ONE</span></div>
-          <a className="scroll-cue" href="#about"><span>اسحب لتحت واكتشف</span><i /></a>
-          <div className="hero-side-index" aria-hidden="true"><span>ZERO ONE</span><i />01 — 04</div>
+          <a className="scroll-cue" href="#about"><span>انزل واكتشف</span><i /></a>
         </section>
 
         <div className="ticker" aria-label="استراتيجية، إبداع، محتوى، أثر، نمو">
