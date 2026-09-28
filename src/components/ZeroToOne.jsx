@@ -20,7 +20,8 @@ export default function ZeroToOne() {
   }
 
   return (
-    <section className="zero-one section-pad" aria-labelledby="zero-one-title">
+    <section className="zero-one section-pad zero-one--immersive" aria-labelledby="zero-one-title">
+      <div className="zero-one__ambient" aria-hidden="true" />
       <div className="section-shell zero-one__layout">
         <div className="zero-one__copy" data-reveal>
           <p className="eyebrow"><span>05</span> OUR SIGNATURE</p>
@@ -28,8 +29,10 @@ export default function ZeroToOne() {
           <p lang="ar" dir="rtl">الفكرة مش مجرد رقم. دي اللحظة اللي فيها كل الاحتمالات لسه مفتوحة — والاختيار الصح بيغيّر كل حاجة.</p>
           <span className="zero-one__instruction">MOVE YOUR CURSOR OR TAP THE MARK</span>
         </div>
-        <button ref={fieldRef} className={`zero-one__field${active ? ' is-active' : ''}`} type="button" onPointerMove={move} onPointerLeave={resetTilt} onClick={() => setActive(!active)} aria-pressed={active} aria-label={active ? 'Return the Zero One mark to zero' : 'Transform zero into one'} data-cursor={active ? 'RESET' : 'MAKE 1'}>
+        <button ref={fieldRef} className={`zero-one__field zero-one__field--immersive${active ? ' is-active' : ''}`} type="button" onPointerMove={move} onPointerLeave={resetTilt} onClick={() => setActive(!active)} aria-pressed={active} aria-label={active ? 'Return the Zero One mark to zero' : 'Transform zero into one'} data-cursor={active ? 'RESET' : 'MAKE 1'}>
+          <span className="zero-one__starfield" aria-hidden="true" />
           <span className="zero-one__guide" aria-hidden="true" />
+          <span className="zero-one__guide zero-one__guide--inner" aria-hidden="true" />
           <span className="zero-one__mark zero-one__mark--zero" aria-hidden="true">0</span>
           <span className="zero-one__mark zero-one__mark--one" aria-hidden="true">1</span>
           <span className="zero-one__mark-glow" aria-hidden="true" />
