@@ -34,20 +34,20 @@ function MarkGeometry() {
       <group>
         <mesh ref={zeroRef}>
           <torusGeometry args={[1.15, 0.23, 48, 112]} />
-          <meshPhysicalMaterial color="#b9ff38" emissive="#66a900" emissiveIntensity={0.12} metalness={0.68} roughness={0.22} clearcoat={0.85} clearcoatRoughness={0.2} />
+          <meshPhysicalMaterial color="#ff7138" emissive="#a9330f" emissiveIntensity={0.12} metalness={0.68} roughness={0.22} clearcoat={0.85} clearcoatRoughness={0.2} />
         </mesh>
         <group ref={oneRef} position={[0.82, 0, 0]} scale={[1, 0.001, 1]}>
           <mesh position={[0, 0.1, 0]}>
             <cylinderGeometry args={[0.13, 0.13, 2.2, 32]} />
-            <meshPhysicalMaterial color="#d4ff82" emissive="#72c000" emissiveIntensity={0.18} metalness={0.55} roughness={0.2} />
+            <meshPhysicalMaterial color="#ffc19d" emissive="#c44b18" emissiveIntensity={0.18} metalness={0.55} roughness={0.2} />
           </mesh>
           <mesh position={[-0.14, -0.78, 0]} rotation={[0, 0, -0.55]}>
             <cylinderGeometry args={[0.12, 0.12, 0.58, 24]} />
-            <meshPhysicalMaterial color="#d4ff82" emissive="#72c000" emissiveIntensity={0.12} metalness={0.55} roughness={0.2} />
+            <meshPhysicalMaterial color="#ffc19d" emissive="#c44b18" emissiveIntensity={0.12} metalness={0.55} roughness={0.2} />
           </mesh>
           <mesh position={[0, -1.06, 0]}>
             <cylinderGeometry args={[0.46, 0.46, 0.13, 32]} />
-            <meshPhysicalMaterial color="#b9ff38" emissive="#66a900" emissiveIntensity={0.12} metalness={0.68} roughness={0.22} />
+            <meshPhysicalMaterial color="#ff7138" emissive="#a9330f" emissiveIntensity={0.12} metalness={0.68} roughness={0.22} />
           </mesh>
         </group>
       </group>
@@ -60,9 +60,9 @@ export default function ZeroScene() {
     <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5.2], fov: 40 }} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}>
       <Suspense fallback={null}>
         <ambientLight intensity={0.65} />
-        <directionalLight position={[4, 5, 5]} intensity={2.3} color="#f1ffd6" />
-        <pointLight position={[-3, -1, 3]} intensity={17} color="#b9ff38" distance={9} />
-        <pointLight position={[3, 2, -2]} intensity={7} color="#6e8c33" distance={8} />
+        <directionalLight position={[4, 5, 5]} intensity={2.3} color="#fff2e9" />
+        <pointLight position={[-3, -1, 3]} intensity={17} color="#ff7138" distance={9} />
+        <pointLight position={[3, 2, -2]} intensity={7} color="#8f3a1e" distance={8} />
         <MarkGeometry />
       </Suspense>
     </Canvas>

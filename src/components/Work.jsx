@@ -5,10 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const projects = [
-  { id: '01', name: 'FORM / FUNCTION', category: 'BRAND IDENTITY · CONCEPT STUDY', shape: 'rings', accent: '#c5ff53', note: 'A sharper point of view.' },
-  { id: '02', name: 'AFTER HOURS', category: 'CAMPAIGN · CONCEPT STUDY', shape: 'type', accent: '#ff754d', note: 'Made to stop the scroll.' },
-  { id: '03', name: 'NORTH / SOUTH', category: 'DIGITAL · CONCEPT STUDY', shape: 'grid', accent: '#bdd2ff', note: 'A digital place with a pulse.' },
-  { id: '04', name: 'STILL MOVING', category: 'MOTION · CONCEPT STUDY', shape: 'orb', accent: '#d7a8ff', note: 'Motion with a reason.' },
+  { id: '01', name: 'FORM / FUNCTION', category: 'BRAND IDENTITY · CONCEPT STUDY', shape: 'rings', accent: '#ff7138', note: 'A sharper point of view.' },
+  { id: '02', name: 'AFTER HOURS', category: 'CAMPAIGN · CONCEPT STUDY', shape: 'type', accent: '#ff8a52', note: 'Made to stop the scroll.' },
+  { id: '03', name: 'NORTH / SOUTH', category: 'DIGITAL · CONCEPT STUDY', shape: 'grid', accent: '#ff7138', note: 'A digital place with a pulse.' },
+  { id: '04', name: 'STILL MOVING', category: 'MOTION · CONCEPT STUDY', shape: 'orb', accent: '#ff8a52', note: 'Motion with a reason.' },
 ]
 
 function ProjectArtwork({ project }) {

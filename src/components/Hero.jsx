@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero({ whatsappUrl }) {
   const sectionRef = useRef(null)
-  const wordsRef = useRef(null)
   const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const [sceneEnabled, setSceneEnabled] = useState(false)
 
@@ -25,10 +24,12 @@ export default function Hero({ whatsappUrl }) {
     const section = sectionRef.current
     if (!section) return undefined
     const context = gsap.context(() => {
-      const entrance = gsap.timeline({ defaults: { ease: 'power4.out' } })
-      entrance.from('.hero__eyebrow', { y: 18, opacity: 0, duration: 0.65 })
-        .from('.hero__title-word', { yPercent: 115, rotateX: -78, stagger: 0.12, duration: 0.9, transformOrigin: '50% 100%' }, '-=0.25')
-        .from('.hero__meta, .hero__actions', { y: 22, opacity: 0, stagger: 0.12, duration: 0.65 }, '-=0.4')
+      if (!reduced) {
+        const entrance = gsap.timeline({ defaults: { ease: 'power4.out' } })
+        entrance.from('.hero__eyebrow', { y: 18, opacity: 0, duration: 0.65 })
+          .from('.hero__title-word', { yPercent: 115, rotateX: -78, stagger: 0.12, duration: 0.9, transformOrigin: '50% 100%' }, '-=0.25')
+          .from('.hero__meta, .hero__actions', { y: 22, opacity: 0, stagger: 0.12, duration: 0.65 }, '-=0.4')
+      }
 
       if (!reduced) {
         ScrollTrigger.create({
@@ -56,15 +57,15 @@ export default function Hero({ whatsappUrl }) {
         <div className="hero__content">
           <div className="hero__title-wrap">
             <p className="hero__overline">WE TAKE BRANDS</p>
-            <h1 id="hero-title" ref={wordsRef}>
+            <h1 id="hero-title">
               <span className="hero__line"><span className="hero__title-word">FROM</span><span className="hero__title-word hero__outline">ZERO</span></span>
-              <span className="hero__line"><span className="hero__title-word">TO</span><span className="hero__title-word hero__lime">ONE<span className="hero__period">.</span></span></span>
+              <span className="hero__line"><span className="hero__title-word">TO</span><span className="hero__title-word hero__accent">ONE<span className="hero__period">.</span></span></span>
             </h1>
           </div>
           <div className="hero__bottom">
             <p className="hero__meta">We build brands, campaigns and digital experiences that move businesses forward.<br /><b lang="ar" dir="rtl">بنحوّل الفكرة لاتجاه واضح، وحضور يسيب أثر.</b></p>
             <div className="hero__actions">
-              <a className="button button--lime" href={whatsappUrl} target="_blank" rel="noreferrer" data-cursor="START">START A PROJECT <span>↗</span></a>
+              <a className="button button--accent" href={whatsappUrl} target="_blank" rel="noreferrer" data-cursor="START">START A PROJECT <span>↗</span></a>
               <a className="hero__work-link" href="#work" data-cursor="VIEW">VIEW OUR WORK <span>↓</span></a>
             </div>
           </div>
