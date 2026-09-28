@@ -54,7 +54,8 @@ export default function Work() {
   }, [])
 
   return (
-    <section className="work" id="work" ref={sectionRef} aria-labelledby="work-title">
+    <section className="work work--immersive" id="work" ref={sectionRef} aria-labelledby="work-title">
+      <div className="work__backdrop" aria-hidden="true" />
       <div className="work__heading section-shell">
         <div data-reveal>
           <p className="eyebrow"><span>03</span> SELECTED WORK</p>
@@ -67,9 +68,9 @@ export default function Work() {
         <span className="work__hint">SCROLL TO EXPLORE <b>→</b></span>
       </div>
       <div className="work__viewport">
-        <div className="work-track" ref={trackRef}>
+        <div className="work-track work-track--immersive" ref={trackRef}>
           {projects.map((project) => (
-            <article className="project-panel" key={project.id} data-cursor="VIEW" aria-label={`${project.name}, ${project.category}`}>
+            <article className="project-panel project-panel--immersive" key={project.id} data-cursor="VIEW" aria-label={`${project.name}, ${project.category}`}>
               <ProjectArtwork project={project} />
               <div className="project-caption">
                 <div>
@@ -82,7 +83,7 @@ export default function Work() {
               </div>
             </article>
           ))}
-          <div className="work__end-card">
+          <div className="work__end-card work__end-card--immersive">
             <span>GOOD WORK<br />MOVES THINGS.</span>
             <a href="#contact" data-cursor="OPEN">HAVE A PROJECT? <b>↗</b></a>
           </div>
