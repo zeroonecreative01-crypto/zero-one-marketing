@@ -16,18 +16,19 @@ export default function Services({ whatsappUrl }) {
   const activeService = services[active]
 
   return (
-    <section className="services section-pad" id="services" aria-labelledby="services-title">
+    <section className="services section-pad services--immersive" id="services" aria-labelledby="services-title">
+      <div className="services__noise" aria-hidden="true" />
       <div className="section-shell">
-        <div className="section-intro" data-reveal>
+        <div className="section-intro services__top" data-reveal>
           <p className="eyebrow"><span>02</span> WHAT WE DO</p>
           <h2 id="services-title" className="section-title">ONE IDEA.<br /><em>MANY WAYS</em><br />TO MOVE.</h2>
-          <p className="section-intro__copy">استراتيجية، إبداع، وتنفيذ — فريق واحد يربط كل خطوة باللي بعدها.</p>
+          <p className="services__intro">استراتيجية، إبداع، وتنفيذ — فريق واحد يربط كل خطوة باللي بعدها.</p>
         </div>
-        <div className="services-layout">
+        <div className="services__experience">
           <div className="service-list" aria-label="ZERO ONE services">
             {services.map(([number, title, description, deliverables], index) => (
               <button
-                className={`service-row${active === index ? ' is-active' : ''}`}
+                className={`service-row service-row--immersive${active === index ? ' is-active' : ''}`}
                 type="button"
                 key={number}
                 onMouseEnter={() => setActive(index)}
@@ -43,9 +44,11 @@ export default function Services({ whatsappUrl }) {
               </button>
             ))}
           </div>
-          <div className={`service-visual service-visual--${active + 1}`} aria-label={`${activeService[1]} service: ${activeService[3]}`}>
+          <div className={`service-visual service-visual--immersive service-visual--${active + 1}`} aria-label={`${activeService[1]} service: ${activeService[3]}`}>
             <div className="service-visual__orbit service-visual__orbit--one" />
             <div className="service-visual__orbit service-visual__orbit--two" />
+            <div className="service-visual__orbit service-visual__orbit--three" />
+            <div className="service-visual__glow" />
             <div className="service-visual__object"><span>0</span><i /></div>
             <div className="service-visual__caption"><span>{activeService[3]}</span><b>{activeService[1]}</b></div>
             <span className="service-visual__index">{activeService[0]}</span>
