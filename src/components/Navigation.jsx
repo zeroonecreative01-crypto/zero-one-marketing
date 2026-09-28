@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const links = [
   ['WORK', '#work'],
@@ -32,8 +32,10 @@ export default function Navigation({ whatsappUrl }) {
   const [noticeVisible, setNoticeVisible] = useState(false)
   const [activeLabel, setActiveLabel] = useState('ZERO ONE')
   const [pulse, setPulse] = useState(false)
+  const indexRef = useRef(0)
+  const openRef = useRef(false)
 
-  const notification = useMemo(() => notifications[noticeIndex], [noticeIndex])
+  useEffect(() => { openRef.current = open }, [open])
 
   useEffect(() => {
     const observers = sectionLabels.map(([id, label]) => {
@@ -45,40 +47,41 @@ export default function Navigation({ whatsappUrl }) {
       observer.observe(element)
       return observer
     }).filter(Boolean)
-
     return () => observers.forEach((observer) => observer.disconnect())
   }, [])
 
   useEffect(() => {
     let hideTimer
-    let rotateTimer
-    let showTimer
+    let revealTimer
+    let pulseTimer
 
     const reveal = (index) => {
-      window.clearTimeout(hideTimer)
-      window.clearTimeout(showTimer)
+      indexRef.current = index
       setNoticeVisible(false)
       setPulse(true)
-      showTimer = window.setTimeout(() => {
+      window.clearTimeout(revealTimer)
+      window.clearTimeout(hideTimer)
+      window.clearTimeout(pulseTimer)
+      revealTimer = window.setTimeout(() => {
         setNoticeIndex(index)
         setNoticeVisible(true)
-        window.clearTimeout(hideTimer)
         hideTimer = window.setTimeout(() => setNoticeVisible(false), 3200)
       }, 180)
-      window.setTimeout(() => setPulse(false), 720)
+      pulseTimer = window.setTimeout(() => setPulse(false), 720)
     }
 
-    showTimer = window.setTimeout(() => reveal(0), 850)
-    rotateTimer = window.setInterval(() => {
-      if (!open) reveal((noticeIndex + 1) % notifications.length)
+    reveal(0)
+    const rotateTimer = window.setInterval(() => {
+      if (!openRef.current) reveal((indexRef.current + 1) % notifications.length)
     }, 5200)
 
     return () => {
       window.clearTimeout(hideTimer)
-      window.clearTimeout(showTimer)
+      window.clearTimeout(revealTimer)
+      window.clearTimeout(pulseTimer)
       window.clearInterval(rotateTimer)
     }
-  }, [open, noticeIndex])
+  }, [])
 
   const handleNavigate = (href) => {
     setOpen(false)
@@ -88,17 +91,13 @@ export default function Navigation({ whatsappUrl }) {
     })
   }
 
+  const notification = notifications[noticeIndex]
+
   return (
     <header className={`dynamic-island-header${open ? ' is-open' : ''}${noticeVisible ? ' is-notifying' : ''}${pulse ? ' is-pulsing' : ''}`}>
       <div className={`dynamic-island${open ? ' is-expanded' : ''}${noticeVisible ? ' is-notifying' : ''}`}>
         <div className="dynamic-island__bar">
-          <button
-            className="dynamic-island__brand"
-            type="button"
-            aria-label={open ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
+          <button className="dynamic-island__brand" type="button" aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
             <span className="dynamic-island__logo"><img src="/zero-one-logo.png" alt="" /></span>
             <span className="dynamic-island__name"><b>ZERO</b> <i>ONE</i></span>
           </button>
@@ -108,13 +107,7 @@ export default function Navigation({ whatsappUrl }) {
             <span>{activeLabel}</span>
           </button>
 
-          <button
-            className={`dynamic-island__menu${open ? ' is-open' : ''}`}
-            type="button"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
+          <button className={`dynamic-island__menu${open ? ' is-open' : ''}`} type="button" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={() => setOpen((value) => !value)}>
             <span /><span />
           </button>
         </div>
@@ -129,14 +122,9 @@ export default function Navigation({ whatsappUrl }) {
 
         <nav className={`dynamic-island__nav${open ? ' is-visible' : ''}`} aria-label="Main navigation">
           {links.map(([label, href], index) => (
-            <button key={label} type="button" onClick={() => handleNavigate(href)}>
-              <span>0{index + 1}</span>
-              {label}
-            </button>
+            <button key={label} type="button" onClick={() => handleNavigate(href)}><span>0{index + 1}</span>{label}</button>
           ))}
-          <a className="dynamic-island__cta" href={whatsappUrl} target="_blank" rel="noreferrer">
-            START A PROJECT <span>↗</span>
-          </a>
+          <a className="dynamic-island__cta" href={whatsappUrl} target="_blank" rel="noreferrer">START A PROJECT <span>↗</span></a>
         </nav>
       </div>
     </header>
