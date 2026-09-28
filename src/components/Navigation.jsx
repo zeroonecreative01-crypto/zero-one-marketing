@@ -1,53 +1,84 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const links = [
   ['WORK', '#work'],
   ['SERVICES', '#services'],
   ['ABOUT', '#about'],
+  ['0 → 1', '#zero-one'],
   ['CONTACT', '#contact'],
 ]
 
 const notifications = [
-  { label: 'WELCOME', text: 'أهلًا بك في Zero One', action: 'استكشف الموقع' },
-  { label: 'SERVICES', text: 'حلول تسويق تبدأ من 0 وتصل إلى 1', action: 'شوف خدماتنا' },
-  { label: 'WORK', text: 'جاهز تشوف شغلنا؟', action: 'استكشف أعمالنا' },
-  { label: 'START', text: 'عندك مشروع؟ خلّينا نبدأ', action: 'ابدأ مشروعك' },
+  { label: 'WELCOME', text: 'أهلًا بك في Zero One', action: 'استكشف الموقع', href: '#home' },
+  { label: 'SERVICES', text: 'نحوّل الفكرة إلى نظام تسويق متكامل', action: 'شوف خدماتنا', href: '#services' },
+  { label: 'WORK', text: 'شوف كيف بنحوّل 0 إلى 1', action: 'استكشف أعمالنا', href: '#work' },
+  { label: '0 → 1', text: 'من أول فكرة لحدّ الحضور اللي يتشاف', action: 'اعرف قصتنا', href: '#zero-one' },
+  { label: 'START', text: 'عندك مشروع؟ خلّينا نبدأ', action: 'ابدأ مشروعك', href: '#contact' },
+]
+
+const sectionLabels = [
+  ['home', 'ZERO ONE'],
+  ['services', 'SERVICES'],
+  ['work', 'WORK'],
+  ['about', 'ABOUT'],
+  ['zero-one', '0 → 1'],
+  ['results', 'RESULTS'],
+  ['contact', 'CONTACT'],
 ]
 
 export default function Navigation({ whatsappUrl }) {
   const [open, setOpen] = useState(false)
   const [noticeIndex, setNoticeIndex] = useState(0)
   const [noticeVisible, setNoticeVisible] = useState(false)
+  const [activeLabel, setActiveLabel] = useState('ZERO ONE')
+  const [pulse, setPulse] = useState(false)
+
+  const notification = useMemo(() => notifications[noticeIndex], [noticeIndex])
+
+  useEffect(() => {
+    const observers = sectionLabels.map(([id, label]) => {
+      const element = document.getElementById(id)
+      if (!element) return null
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) setActiveLabel(label)
+      }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 })
+      observer.observe(element)
+      return observer
+    }).filter(Boolean)
+
+    return () => observers.forEach((observer) => observer.disconnect())
+  }, [])
 
   useEffect(() => {
     let hideTimer
-    let showTimer
     let rotateTimer
+    let showTimer
 
-    const showNext = () => {
+    const reveal = (index) => {
+      window.clearTimeout(hideTimer)
+      window.clearTimeout(showTimer)
       setNoticeVisible(false)
+      setPulse(true)
       showTimer = window.setTimeout(() => {
-        setNoticeIndex((index) => (index + 1) % notifications.length)
+        setNoticeIndex(index)
         setNoticeVisible(true)
-        hideTimer = window.setTimeout(() => setNoticeVisible(false), 3300)
-      }, 260)
+        window.clearTimeout(hideTimer)
+        hideTimer = window.setTimeout(() => setNoticeVisible(false), 3200)
+      }, 180)
+      window.setTimeout(() => setPulse(false), 720)
     }
 
-    showTimer = window.setTimeout(() => {
-      setNoticeVisible(true)
-      hideTimer = window.setTimeout(() => setNoticeVisible(false), 3300)
-    }, 900)
-
-    rotateTimer = window.setInterval(showNext, 5000)
+    showTimer = window.setTimeout(() => reveal(0), 850)
+    rotateTimer = window.setInterval(() => {
+      if (!open) reveal((noticeIndex + 1) % notifications.length)
+    }, 5200)
 
     return () => {
       window.clearTimeout(hideTimer)
       window.clearTimeout(showTimer)
       window.clearInterval(rotateTimer)
     }
-  }, [])
-
-  const notification = notifications[noticeIndex]
+  }, [open, noticeIndex])
 
   const handleNavigate = (href) => {
     setOpen(false)
@@ -58,7 +89,7 @@ export default function Navigation({ whatsappUrl }) {
   }
 
   return (
-    <header className={`dynamic-island-header${open ? ' is-open' : ''}${noticeVisible ? ' is-notifying' : ''}`}>
+    <header className={`dynamic-island-header${open ? ' is-open' : ''}${noticeVisible ? ' is-notifying' : ''}${pulse ? ' is-pulsing' : ''}`}>
       <div className={`dynamic-island${open ? ' is-expanded' : ''}${noticeVisible ? ' is-notifying' : ''}`}>
         <div className="dynamic-island__bar">
           <button
@@ -72,9 +103,9 @@ export default function Navigation({ whatsappUrl }) {
             <span className="dynamic-island__name"><b>ZERO</b> <i>ONE</i></span>
           </button>
 
-          <button className="dynamic-island__status" type="button" onClick={() => setOpen((value) => !value)} aria-label="Open Zero One menu">
-            <span className={`dynamic-island__dot${noticeVisible ? ' is-pulsing' : ''}`} />
-            <span>ZERO ONE</span>
+          <button className="dynamic-island__status" type="button" onClick={() => setNoticeVisible((value) => !value)} aria-label="Show Zero One message">
+            <span className={`dynamic-island__dot${pulse ? ' is-pulsing' : ''}`} />
+            <span>{activeLabel}</span>
           </button>
 
           <button
@@ -93,7 +124,7 @@ export default function Navigation({ whatsappUrl }) {
             <small>{notification.label}</small>
             <strong>{notification.text}</strong>
           </span>
-          <button type="button" onClick={() => setOpen(true)}>{notification.action}<span>↗</span></button>
+          <button type="button" onClick={() => handleNavigate(notification.href)}>{notification.action}<span>↗</span></button>
         </div>
 
         <nav className={`dynamic-island__nav${open ? ' is-visible' : ''}`} aria-label="Main navigation">
