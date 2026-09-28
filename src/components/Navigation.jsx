@@ -20,21 +20,32 @@ export default function Navigation({ whatsappUrl }) {
   const [noticeVisible, setNoticeVisible] = useState(true)
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    let hideTimer
+    let rotateTimer
+
+    const showNext = () => {
       setNoticeVisible(false)
       window.setTimeout(() => {
         setNoticeIndex((index) => (index + 1) % notifications.length)
         setNoticeVisible(true)
-      }, 260)
-    }, 5000)
+        hideTimer = window.setTimeout(() => setNoticeVisible(false), 3600)
+      }, 300)
+    }
 
-    return () => window.clearInterval(timer)
+    hideTimer = window.setTimeout(() => setNoticeVisible(false), 4200)
+    rotateTimer = window.setInterval(showNext, 5000)
+
+    return () => {
+      window.clearTimeout(hideTimer)
+      window.clearInterval(rotateTimer)
+    }
   }, [])
 
   const notification = notifications[noticeIndex]
 
   const handleNavigate = (href) => {
     setOpen(false)
+    setNoticeVisible(false)
     window.requestAnimationFrame(() => {
       document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     })
@@ -57,7 +68,7 @@ export default function Navigation({ whatsappUrl }) {
 
           <button className="dynamic-island__status" type="button" onClick={() => setOpen((value) => !value)} aria-label="Open Zero One menu">
             <span className={`dynamic-island__dot${noticeVisible ? ' is-pulsing' : ''}`} />
-            <span className={noticeVisible ? 'is-visible' : 'is-hidden'}>{notification.label}</span>
+            <span>ZERO ONE</span>
           </button>
 
           <button
@@ -72,7 +83,6 @@ export default function Navigation({ whatsappUrl }) {
         </div>
 
         <div className={`dynamic-island__notice${noticeVisible ? ' is-visible' : ''}`} aria-live="polite">
-          <span className="dynamic-island__notice-logo"><img src="/zero-one-logo.png" alt="" /></span>
           <span className="dynamic-island__notice-copy">
             <small>{notification.label}</small>
             <strong>{notification.text}</strong>
