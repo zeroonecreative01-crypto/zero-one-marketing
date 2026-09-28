@@ -54,6 +54,61 @@ img { max-width: 100%; display: block; }
 .topbar__cta span { font-size: 15px; }
 .menu-toggle { display: none; }
 
+/* Dynamic Island navigation */
+.dynamic-island-header { position: fixed; z-index: 90; top: 14px; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; }
+.dynamic-island { width: min(92vw, 590px); color: #f7f3eb; border: 1px solid rgba(255,255,255,.13); border-radius: 30px; background: rgba(10,10,9,.88); box-shadow: 0 18px 60px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.07); backdrop-filter: blur(24px) saturate(130%); -webkit-backdrop-filter: blur(24px) saturate(130%); overflow: hidden; pointer-events: auto; transition: width .45s cubic-bezier(.22,.8,.2,1), border-radius .45s cubic-bezier(.22,.8,.2,1), background .3s ease, box-shadow .3s ease; }
+.dynamic-island.is-expanded { width: min(94vw, 760px); border-radius: 27px; background: rgba(12,12,11,.95); box-shadow: 0 25px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,90,18,.08); }
+.dynamic-island__bar { height: 58px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding: 0 9px 0 13px; }
+.dynamic-island__brand, .dynamic-island__status, .dynamic-island__menu { border: 0; background: transparent; cursor: pointer; }
+.dynamic-island__brand { display: inline-flex; align-items: center; justify-self: start; gap: 9px; min-width: 0; padding: 0; color: #fff; }
+.dynamic-island__logo { width: 29px; height: 29px; display: grid; place-items: center; overflow: hidden; border-radius: 9px; background: #fff; }
+.dynamic-island__logo img { width: 165%; height: 165%; object-fit: cover; filter: brightness(0); }
+.dynamic-island__name { white-space: nowrap; font: 800 10px/1 Arial,sans-serif; letter-spacing: .11em; }
+.dynamic-island__name i { color: var(--accent); font-style: normal; }
+.dynamic-island__status { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 112px; color: #bdb7ae; font: 700 7px/1 Arial,sans-serif; letter-spacing: .14em; }
+.dynamic-island__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(255,113,56,.5); }
+.dynamic-island__dot.is-pulsing { animation: island-pulse 1.8s infinite; }
+.dynamic-island__status span:last-child { transition: opacity .2s ease, transform .2s ease; }
+.dynamic-island__status .is-hidden { opacity: .25; transform: translateY(3px); }
+.dynamic-island__status .is-visible { opacity: 1; transform: translateY(0); }
+.dynamic-island__menu { width: 39px; height: 39px; display: grid; place-content: center; justify-self: end; gap: 5px; border-radius: 50%; background: rgba(255,255,255,.07); }
+.dynamic-island__menu span { width: 13px; height: 1px; display: block; background: #fff; transition: transform .3s ease; }
+.dynamic-island__menu.is-open span:first-child { transform: translateY(3px) rotate(45deg); }
+.dynamic-island__menu.is-open span:last-child { transform: translateY(-3px) rotate(-45deg); }
+.dynamic-island__notice { max-height: 0; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 11px; padding: 0 16px; opacity: 0; transform: translateY(-8px); overflow: hidden; transition: max-height .42s ease, padding .42s ease, opacity .28s ease, transform .42s cubic-bezier(.2,.8,.2,1); }
+.dynamic-island__notice.is-visible { max-height: 78px; padding: 8px 16px 15px; opacity: 1; transform: translateY(0); }
+.dynamic-island__notice-logo { width: 31px; height: 31px; display: grid; place-items: center; overflow: hidden; flex: 0 0 auto; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; background: #fff; }
+.dynamic-island__notice-logo img { width: 160%; height: 160%; object-fit: cover; filter: brightness(0); }
+.dynamic-island__notice-copy { min-width: 0; display: grid; gap: 4px; direction: rtl; text-align: right; }
+.dynamic-island__notice-copy small { color: var(--accent-soft); font: 700 7px/1 Arial,sans-serif; letter-spacing: .13em; }
+.dynamic-island__notice-copy strong { overflow: hidden; color: #eee9e1; font-size: 10px; font-weight: 500; line-height: 1.6; text-overflow: ellipsis; white-space: nowrap; }
+.dynamic-island__notice button { display: inline-flex; align-items: center; gap: 7px; padding: 8px 10px; border: 1px solid rgba(255,255,255,.13); border-radius: 999px; color: #f4efe7; background: rgba(255,255,255,.05); cursor: pointer; font-size: 7px; white-space: nowrap; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.dynamic-island__notice button:hover { border-color: rgba(255,113,56,.65); background: rgba(255,113,56,.12); transform: translateY(-1px); }
+.dynamic-island__notice button span { color: var(--accent); font-size: 11px; }
+.dynamic-island__nav { max-height: 0; display: grid; grid-template-columns: repeat(4,1fr) auto; gap: 7px; padding: 0 11px; opacity: 0; overflow: hidden; transform: translateY(-7px); transition: max-height .45s ease, padding .45s ease, opacity .25s ease, transform .45s ease; }
+.dynamic-island__nav.is-visible { max-height: 86px; padding: 2px 11px 13px; opacity: 1; transform: translateY(0); }
+.dynamic-island__nav button, .dynamic-island__cta { min-height: 46px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; border: 1px solid rgba(255,255,255,.08); border-radius: 13px; color: #c9c3bb; background: rgba(255,255,255,.035); cursor: pointer; font: 700 8px/1 Arial,sans-serif; letter-spacing: .06em; }
+.dynamic-island__nav button:hover { color: #fff; border-color: rgba(255,113,56,.5); background: rgba(255,113,56,.1); transform: translateY(-2px); }
+.dynamic-island__nav button span { color: #69645e; font-size: 6px; }
+.dynamic-island__cta { min-width: 130px; flex-direction: row; gap: 8px; padding: 0 12px; border-color: var(--accent); color: var(--black); background: var(--accent); text-decoration: none; }
+.dynamic-island__cta:hover { background: var(--accent-soft); transform: translateY(-2px); }
+@keyframes island-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,113,56,.45); } 50% { box-shadow: 0 0 0 5px rgba(255,113,56,0); } }
+
+@media (max-width: 700px) {
+  .dynamic-island-header { top: 9px; }
+  .dynamic-island { width: calc(100vw - 20px); border-radius: 25px; }
+  .dynamic-island.is-expanded { width: calc(100vw - 12px); border-radius: 24px; }
+  .dynamic-island__bar { height: 52px; padding-left: 9px; }
+  .dynamic-island__name { font-size: 9px; }
+  .dynamic-island__status { min-width: 74px; font-size: 6px; }
+  .dynamic-island__notice { grid-template-columns: auto minmax(0,1fr); }
+  .dynamic-island__notice button { grid-column: 2; justify-self: start; margin-top: -2px; }
+  .dynamic-island__notice.is-visible { padding-bottom: 11px; }
+  .dynamic-island__nav { grid-template-columns: repeat(2,1fr); }
+  .dynamic-island__nav.is-visible { max-height: 180px; }
+  .dynamic-island__cta { min-width: 0; }
+}
+
 /* Hero: a long sticky stage gives the 0 → 1 scene room to transform. */
 .hero { height: 176svh; min-height: 1180px; position: relative; background: var(--black); }
 .hero__stage { height: 100svh; min-height: 700px; position: sticky; top: 0; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 52% 52% at 69% 43%, rgba(110,44,21,.14), transparent 73%), var(--black); }
