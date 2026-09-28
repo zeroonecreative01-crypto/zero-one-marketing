@@ -56,19 +56,31 @@ export default function Work() {
   return (
     <section className="work" id="work" ref={sectionRef} aria-labelledby="work-title">
       <div className="work__heading section-shell">
-        <div data-reveal><p className="eyebrow"><span>03</span> SELECTED WORK</p><h2 id="work-title" className="section-title">IDEAS, MADE<br /><em>VISIBLE.</em></h2></div>
-        <p className="work__note" data-reveal>مختارات مفاهيمية توضّح طريقة تفكيرنا. المشاريع الفعلية تُضاف مع إطلاقها.</p>
+        <div data-reveal>
+          <p className="eyebrow"><span>03</span> SELECTED WORK</p>
+          <h2 id="work-title" className="section-title">IDEAS, MADE<br /><em>VISIBLE.</em></h2>
+        </div>
+        <div className="work__heading-copy" data-reveal>
+          <p className="work__note">A visual sample of how we think across identity, campaigns, digital and motion. These are concept studies—not client results presented as real work.</p>
+          <a href="#contact" className="work__case-link">WANT A CASE STUDY FOR YOUR BRAND? <b>↗</b></a>
+        </div>
         <span className="work__hint">SCROLL TO EXPLORE <b>→</b></span>
       </div>
       <div className="work__viewport">
         <div className="work-track" ref={trackRef}>
           {projects.map((project) => (
-            <article className="project-panel" key={project.id} data-cursor="VIEW">
+            <article className="project-panel" key={project.id} data-cursor="VIEW" aria-label={`${project.name}, ${project.category}`}>
               <ProjectArtwork project={project} />
-              <div className="project-caption"><div><span>{project.category}</span><h3>{project.name}</h3><p>{project.note}</p></div><span className="project-caption__number">{project.id} <i>↗</i></span></div>
+              <div className="project-caption">
+                <div><span>{project.category}</span><h3>{project.name}</h3><p>{project.note}</p></div>
+                <span className="project-caption__number">{project.id} <i>↗</i></span>
+              </div>
             </article>
           ))}
-          <div className="work__end-card"><span>GOOD WORK<br />MOVES THINGS.</span><a href="#contact" data-cursor="OPEN">HAVE A PROJECT? <b>↗</b></a></div>
+          <div className="work__end-card">
+            <span>GOOD WORK<br />MOVES THINGS.</span>
+            <a href="#contact" data-cursor="OPEN">HAVE A PROJECT? <b>↗</b></a>
+          </div>
         </div>
       </div>
       <div className="work__mobile-note section-shell"><span>SWIPE TO EXPLORE</span><i>→</i></div>
