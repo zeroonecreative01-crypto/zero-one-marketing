@@ -48,6 +48,11 @@ export default function useMotionSystem() {
       }
     })
 
+    const pointerMove = (event) => {
+      document.documentElement.style.setProperty('--mouse-x', `${(event.clientX / window.innerWidth * 100).toFixed(2)}%`)
+      document.documentElement.style.setProperty('--mouse-y', `${(event.clientY / window.innerHeight * 100).toFixed(2)}%`)
+    }
+    window.addEventListener('pointermove', pointerMove, { passive: true })
     const startSmoothScroll = () => {
       if (reducedMotion.matches || isTouch.matches) return
       lenis = new Lenis({
@@ -75,6 +80,7 @@ export default function useMotionSystem() {
     return () => {
       window.removeEventListener('load', refresh)
       window.removeEventListener('resize', refresh)
+      window.removeEventListener('pointermove', pointerMove)
       resizeObserver?.disconnect()
       context.revert()
       if (tick) gsap.ticker.remove(tick)
