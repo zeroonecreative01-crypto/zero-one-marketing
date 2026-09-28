@@ -1,6 +1,7 @@
 export default function About() {
   return (
-    <section className="about section-pad" id="about" aria-labelledby="about-title">
+    <section className="about section-pad about--immersive" id="about" aria-labelledby="about-title">
+      <div className="about__ambient" aria-hidden="true"><span>0</span><i /></div>
       <div className="section-shell about__layout">
         <div className="about__index" data-reveal><span>04 / THE STUDIO</span><i>—</i><span>CAIRO, EGYPT</span></div>
         <div className="about__statement">
