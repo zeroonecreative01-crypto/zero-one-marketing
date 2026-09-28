@@ -32,6 +32,8 @@ button { color: inherit; }
 .site-header { height: 86px; position: absolute; inset: 0 0 auto; z-index: 20; border-bottom: 1px solid rgba(255,255,255,.11); color: #f5f1e9; }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; direction: ltr; flex: 0 0 auto; }
+.logo-mark { position: relative; display: block; flex: 0 0 auto; overflow: hidden; }
+.logo-mark-image { position: absolute; top: 50%; left: 50%; width: 250%; height: 250%; max-width: none; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0) invert(1); }
 .brand-mark { width: 44px; height: 44px; color: #f5f1e9; }
 .brand-copy { display: grid; gap: 2px; text-align: left; }
 .brand-copy strong { font-size: 14px; letter-spacing: .11em; font-weight: 800; line-height: 1.2; }

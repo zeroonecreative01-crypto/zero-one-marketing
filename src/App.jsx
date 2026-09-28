@@ -37,10 +37,9 @@ const steps = [
 
 function Mark({ className = '' }) {
   return (
-    <svg className={className} viewBox="0 0 80 80" role="img" aria-label="شعار Zero One">
-      <rect x="12" y="9" width="56" height="62" rx="28" fill="none" stroke="currentColor" strokeWidth="8" />
-      <text x="40" y="44" textAnchor="middle" dominantBaseline="middle" fill="currentColor" fontFamily="Arial, sans-serif" fontSize="17" fontWeight="900" letterSpacing="1" transform="rotate(-90 40 40)">ONE</text>
-    </svg>
+    <span className={`logo-mark ${className}`} aria-hidden="true">
+      <img className="logo-mark-image" src="/zero-one-logo.png" alt="" />
+    </span>
   )
 }
 
