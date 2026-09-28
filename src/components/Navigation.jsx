@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './dynamic-island.css'
 
 const links = [
   ['WORK', '#work'],
@@ -59,8 +58,8 @@ export default function Navigation({ whatsappUrl }) {
   }
 
   return (
-    <header className={`dynamic-island-header${open ? ' is-open' : ''}`}>
-      <div className={`dynamic-island${open ? ' is-expanded' : ''}`}>
+    <header className={`dynamic-island-header${open ? ' is-open' : ''}${noticeVisible ? ' is-notifying' : ''}`}>
+      <div className={`dynamic-island${open ? ' is-expanded' : ''}${noticeVisible ? ' is-notifying' : ''}`}>
         <div className="dynamic-island__bar">
           <button
             className="dynamic-island__brand"
