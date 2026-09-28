@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.pnpm-store/
+sources/
+AGENTS.md
+.vercel/
+.env*
+!.env.example
