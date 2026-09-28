@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './dynamic-island.css'
 
 const links = [
   ['WORK', '#work'],
@@ -17,26 +18,32 @@ const notifications = [
 export default function Navigation({ whatsappUrl }) {
   const [open, setOpen] = useState(false)
   const [noticeIndex, setNoticeIndex] = useState(0)
-  const [noticeVisible, setNoticeVisible] = useState(true)
+  const [noticeVisible, setNoticeVisible] = useState(false)
 
   useEffect(() => {
     let hideTimer
+    let showTimer
     let rotateTimer
 
     const showNext = () => {
       setNoticeVisible(false)
-      window.setTimeout(() => {
+      showTimer = window.setTimeout(() => {
         setNoticeIndex((index) => (index + 1) % notifications.length)
         setNoticeVisible(true)
-        hideTimer = window.setTimeout(() => setNoticeVisible(false), 3600)
-      }, 300)
+        hideTimer = window.setTimeout(() => setNoticeVisible(false), 3300)
+      }, 260)
     }
 
-    hideTimer = window.setTimeout(() => setNoticeVisible(false), 4200)
+    showTimer = window.setTimeout(() => {
+      setNoticeVisible(true)
+      hideTimer = window.setTimeout(() => setNoticeVisible(false), 3300)
+    }, 900)
+
     rotateTimer = window.setInterval(showNext, 5000)
 
     return () => {
       window.clearTimeout(hideTimer)
+      window.clearTimeout(showTimer)
       window.clearInterval(rotateTimer)
     }
   }, [])
